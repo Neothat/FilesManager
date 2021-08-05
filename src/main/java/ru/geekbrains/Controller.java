@@ -92,4 +92,39 @@ public class Controller {
         }
         removablePC.updateList(Paths.get(removablePC.getCurrentPath()));
     }
+
+    public void moveBtnAction(ActionEvent actionEvent) {
+        PanelController leftPC = (PanelController) leftPanel.getProperties().get("ctrl");
+        PanelController rightPC = (PanelController) rightPanel.getProperties().get("ctrl");
+
+        if (leftPC.getSelectedFilename() == null && rightPC.getSelectedFilename() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Ни один файл не был выбран", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+
+        PanelController sourcePC = null;
+        PanelController distinctPC = null;
+
+        if (leftPC.getSelectedFilename() != null) {
+            sourcePC = leftPC;
+            distinctPC = rightPC;
+        }
+        if (rightPC.getSelectedFilename() != null) {
+            sourcePC = rightPC;
+            distinctPC = leftPC;
+        }
+
+        Path southPath = Paths.get(sourcePC.getCurrentPath(), sourcePC.getSelectedFilename());
+        Path distinctPath = Paths.get(distinctPC.getCurrentPath()).resolve(southPath.getFileName().toString());
+
+        try {
+            Files.move(southPath, distinctPath);
+            distinctPC.updateList(Paths.get(distinctPC.getCurrentPath()));
+            sourcePC.updateList(Paths.get(sourcePC.getCurrentPath()));
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Не удалось скопирывать указаный файл", ButtonType.OK);
+            alert.showAndWait();
+        }
+    }
 }

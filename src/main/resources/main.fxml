@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <VBox alignment="center" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
       fx:controller="ru.geekbrains.Controller">
@@ -14,7 +14,8 @@
     <HBox spacing="5">
         <Button maxWidth="Infinity" focusTraversable="false" text="Копировать файл" HBox.hgrow="ALWAYS"
                 onAction="#copyBtnAction"/>
-        <Button maxWidth="Infinity" focusTraversable="false" text="Перестить файл" HBox.hgrow="ALWAYS"/>
+        <Button maxWidth="Infinity" focusTraversable="false" text="Перестить файл" HBox.hgrow="ALWAYS"
+                onAction="#moveBtnAction"/>
         <Button maxWidth="Infinity" focusTraversable="false" text="Удалить файл" HBox.hgrow="ALWAYS"
                 onAction="#removeBtnAction"/>
         <Button maxWidth="Infinity" focusTraversable="false" text="Выход из программы" HBox.hgrow="ALWAYS"

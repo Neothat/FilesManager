@@ -65,7 +65,7 @@ public class FileInfo {
             this.size = Files.size(path);
             this.type = Files.isDirectory(path) ? FileType.DIRECTORY : FileType.FILE;
             if (this.type == FileType.DIRECTORY) {
-                this.size = -1L;
+                this.size = -1L; //For more convenient sorting
             }
             this.lastModified = LocalDateTime.ofInstant(Files.getLastModifiedTime(path).toInstant(), ZoneOffset.ofHours(3));
         } catch (IOException e) {
