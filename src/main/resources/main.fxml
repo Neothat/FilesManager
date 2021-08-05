@@ -15,12 +15,12 @@
         <TextField editable="false" HBox.hgrow="ALWAYS"/>
         <Button text="Вверх"/>
     </HBox>
-    <TableView VBox.vgrow="ALWAYS"/>
+    <TableView fx:id="filesTable" VBox.vgrow="ALWAYS"/>
     <HBox spacing="5">
         <Button maxWidth="Infinity" text="Копировать файл" HBox.hgrow="ALWAYS"/>
         <Button maxWidth="Infinity" text="Перестить файл" HBox.hgrow="ALWAYS"/>
         <Button maxWidth="Infinity" text="Удалить файл" HBox.hgrow="ALWAYS"/>
-        <Button maxWidth="Infinity" text="Выход из программы" HBox.hgrow="ALWAYS"/>
+        <Button maxWidth="Infinity" text="Выход из программы" HBox.hgrow="ALWAYS" onAction="#btnExitAction"/>
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
         </padding>
