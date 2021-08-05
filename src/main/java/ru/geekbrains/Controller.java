@@ -7,10 +7,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 
 public class Controller {
 
@@ -56,5 +58,38 @@ public class Controller {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Не удалось скопирывать указаный файл", ButtonType.OK);
             alert.showAndWait();
         }
+    }
+
+    public void removeBtnAction(ActionEvent actionEvent) {
+        PanelController leftPC = (PanelController) leftPanel.getProperties().get("ctrl");
+        PanelController rightPC = (PanelController) rightPanel.getProperties().get("ctrl");
+
+        if (leftPC.getSelectedFilename() == null && rightPC.getSelectedFilename() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Ни один файл не был выбран", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+
+        PanelController removablePC = null;
+
+        if (leftPC.getSelectedFilename() != null) {
+            removablePC = leftPC;
+        }
+        if (rightPC.getSelectedFilename() != null) {
+            removablePC = rightPC;
+        }
+
+        Path pathToBeDeleted = Paths.get(removablePC.getCurrentPath(), removablePC.getSelectedFilename());
+
+        try {
+            Files.walk(pathToBeDeleted)
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Не удалось удалить указаный файл", ButtonType.OK);
+            alert.showAndWait();
+        }
+        removablePC.updateList(Paths.get(removablePC.getCurrentPath()));
     }
 }
