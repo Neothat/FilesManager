@@ -11,10 +11,10 @@ import java.util.Objects;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/main.fxml")));
         primaryStage.setTitle("Java File Manager");
-        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setScene(new Scene(root, 1100, 600));
         primaryStage.show();
     }
 
