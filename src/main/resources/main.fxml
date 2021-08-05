@@ -10,12 +10,10 @@
             <MenuItem text="Выйти из программы"/>
         </Menu>
     </MenuBar>
-    <HBox>
-        <ComboBox/>
-        <TextField editable="false" HBox.hgrow="ALWAYS"/>
-        <Button text="Вверх"/>
+    <HBox VBox.vgrow="ALWAYS">
+        <fx:include fx:id="leftPanel" source="panel.fxml" HBox.hgrow="ALWAYS"/>
+        <fx:include fx:id="rightPanel" source="panel.fxml" HBox.hgrow="ALWAYS"/>
     </HBox>
-    <TableView fx:id="filesTable" VBox.vgrow="ALWAYS"/>
     <HBox spacing="5">
         <Button maxWidth="Infinity" text="Копировать файл" HBox.hgrow="ALWAYS"/>
         <Button maxWidth="Infinity" text="Перестить файл" HBox.hgrow="ALWAYS"/>
