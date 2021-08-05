@@ -1,4 +1,28 @@
-<?import javafx.scene.layout.GridPane?>
-<GridPane fx:controller="ru.geekbrains.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center">
-</GridPane>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox alignment="center" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:controller="ru.geekbrains.Controller">
+    <MenuBar>
+        <Menu text="Файл">
+            <MenuItem text="Выйти из программы"/>
+        </Menu>
+    </MenuBar>
+    <HBox>
+        <ComboBox/>
+        <TextField editable="false" HBox.hgrow="ALWAYS"/>
+        <Button text="Вверх"/>
+    </HBox>
+    <TableView VBox.vgrow="ALWAYS"/>
+    <HBox spacing="5">
+        <Button maxWidth="Infinity" text="Копировать файл" HBox.hgrow="ALWAYS"/>
+        <Button maxWidth="Infinity" text="Перестить файл" HBox.hgrow="ALWAYS"/>
+        <Button maxWidth="Infinity" text="Удалить файл" HBox.hgrow="ALWAYS"/>
+        <Button maxWidth="Infinity" text="Выход из программы" HBox.hgrow="ALWAYS"/>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </padding>
+    </HBox>
+</VBox>
