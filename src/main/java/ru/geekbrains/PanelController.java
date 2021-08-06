@@ -3,11 +3,9 @@ package ru.geekbrains;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,23 +38,21 @@ public class PanelController implements Initializable {
 
         TableColumn<FileInfo, Long> fileSizeColumn = new TableColumn<>("Размер");
         fileSizeColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getSize()));
-        fileSizeColumn.setCellFactory(column -> {
-            return new TableCell<FileInfo, Long>() {
-                @Override
-                protected void updateItem(Long item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item == null || empty) {
-                        setText(null);
-                        setStyle("");
-                    } else {
-                        String text = String.format("%,d bytes", item);
-                        if (item == -1L) {
-                            text = "[DIR]";
-                        }
-                        setText(text);
+        fileSizeColumn.setCellFactory(column -> new TableCell<FileInfo, Long>() {
+            @Override
+            protected void updateItem(Long item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    String text = String.format("%,d bytes", item);
+                    if (item == -1L) {
+                        text = "[DIR]";
                     }
+                    setText(text);
                 }
-            };
+            }
         });
         fileSizeColumn.setPrefWidth(120);
 
@@ -65,6 +61,7 @@ public class PanelController implements Initializable {
         fileDateColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getLastModified().format(dtf)));
         fileDateColumn.setPrefWidth(120);
 
+        //noinspection unchecked
         filesTable.getColumns().addAll(fileTypeColumn, fileNameColumn, fileSizeColumn, fileDateColumn);
         filesTable.getSortOrder().add(fileTypeColumn);
 
@@ -74,19 +71,16 @@ public class PanelController implements Initializable {
         }
         disksBox.getSelectionModel().select(0);
 
-        filesTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.getClickCount() == 2) {
-                    Path path = Paths.get(pathField.getText()).resolve(filesTable.getSelectionModel().getSelectedItem().getFileName());
-                    if (Files.isDirectory(path)) {
-                        updateList(path);
-                    }
+        filesTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                Path path = Paths.get(pathField.getText()).resolve(filesTable.getSelectionModel().getSelectedItem().getFileName());
+                if (Files.isDirectory(path)) {
+                    updateList(path);
                 }
             }
         });
 
-        updateList(Paths.get("C:/Users/denis.volkov/FilesManager"));
+        updateList(Paths.get("C:/"));
     }
 
     public void updateList(Path path) {
@@ -101,7 +95,7 @@ public class PanelController implements Initializable {
         }
     }
 
-    public void btnPathUpAction(ActionEvent actionEvent) {
+    public void btnPathUpAction() {
         Path upperPath = Paths.get(pathField.getText()).getParent();
         if (upperPath != null) {
             updateList(upperPath);
@@ -110,15 +104,21 @@ public class PanelController implements Initializable {
 
     // If the system has one disk, then the transition will not occur
     public void selectDiskAction(ActionEvent actionEvent) {
-        ComboBox<String> element = (ComboBox<String>) actionEvent.getSource();
+        @SuppressWarnings("unchecked") ComboBox<String> element = (ComboBox<String>) actionEvent.getSource();
         updateList(Paths.get(element.getSelectionModel().getSelectedItem()));
     }
 
     public String getSelectedFilename() {
+
         if (!filesTable.isFocused()) {
             return null;
         }
-        return filesTable.getSelectionModel().getSelectedItem().getFileName();
+
+        try {
+            return filesTable.getSelectionModel().getSelectedItem().getFileName();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public String getCurrentPath() {

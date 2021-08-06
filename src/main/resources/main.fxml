@@ -12,12 +12,15 @@
     </HBox>
 
     <HBox spacing="5">
-        <Button maxWidth="Infinity" focusTraversable="false" text="Копировать файл" HBox.hgrow="ALWAYS"
-                onAction="#copyBtnAction"/>
-        <Button maxWidth="Infinity" focusTraversable="false" text="Перестить файл" HBox.hgrow="ALWAYS"
-                onAction="#moveBtnAction"/>
-        <Button maxWidth="Infinity" focusTraversable="false" text="Удалить файл" HBox.hgrow="ALWAYS"
-                onAction="#removeBtnAction"/>
+        <Button fx:id="copyButton" maxWidth="Infinity" focusTraversable="false" text="Копировать файл"
+                HBox.hgrow="ALWAYS"
+                onAction="#buttonAction"/>
+        <Button fx:id="moveButton" maxWidth="Infinity" focusTraversable="false" text="Перестить файл"
+                HBox.hgrow="ALWAYS"
+                onAction="#buttonAction"/>
+        <Button fx:id="removeButton" maxWidth="Infinity" focusTraversable="false" text="Удалить файл"
+                HBox.hgrow="ALWAYS"
+                onAction="#buttonAction"/>
         <Button maxWidth="Infinity" focusTraversable="false" text="Выход из программы" HBox.hgrow="ALWAYS"
                 onAction="#btnExitAction"/>
         <padding>
