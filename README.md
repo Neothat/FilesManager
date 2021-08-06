@@ -1,0 +1,1 @@
+Simple file manager with functions for deleting, copying and moving one directory or file
